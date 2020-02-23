@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}日記一覧 | Private Diary{% endblock %}
+{% block title %}日記一覧{% endblock %}
 
 {% block head %}
 
@@ -13,7 +13,7 @@
     <section id='diary-list' class="container">
     
         <div class="clearfix">
-            <a class="btn btn-primary float-right" href="{% url 'journal:diary_create' %}">新規作成</a>
+            <a class="btn btn-danger float-right" href="{% url 'journal:diary_create' %}">新規作成</a>
         </div>
 
         <h1 class="section-title">{{ heading }}</h1>
@@ -22,12 +22,12 @@
 
             <article class="post-preview">
                 <a href="{% url 'journal:diary_detail' journal.pk %}">
-                    <h2 class="post-title">{{ journal.title }}</h2>
+                    <h2 class="post-title">{{ journal.title }}</h2></b>
                     <p class="post-meta">
                         {{ journal.created_at | date:'Y年n月j日' }}
                     </p>
                     <div class='contents'>
-                        <p>{{ journal.content|truncatechars:20 }}</p>
+                        <p>{{ journal.content|truncatechars:30 }}</p>
                     </div>
                 </a>
             </article>
