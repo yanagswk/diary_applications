@@ -1,0 +1,125 @@
+body, #wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    margin-top: auto;
+}
+
+
+.div-style {
+    margin-top: 6rem;
+}
+
+
+li {
+    margin: 0.5em 0;
+}
+
+.container {
+    padding: 0 8px;
+}
+
+@media(min-width: 1024px) {
+    .container {
+        padding: 0 32px;
+        box-sizing: border-box;
+        width: 1024px;
+        margin: 0 auto;
+    }
+}
+
+@media(min-width: 1366px) {
+    .container {
+        width: 1366px;
+    }
+}
+
+
+
+.post-preview {
+    background-color: #DDDDDD;
+    padding: 32px;
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+
+.post-preview > a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+.post-preview > a:hover {
+    overflow: hidden;
+    transform: scale(1.1);
+    transition-duration: 1s;
+}
+
+
+.post-title {
+    margin-bottom: 16px;
+    font-size: 22px;
+    color: #333;
+    font-weight: 400;
+}
+
+
+.post-meta {
+    margin-bottom: 32px;
+    color: #999;
+    font-size: 14px;
+}
+
+
+.contents > p {
+    color: #333;
+    line-height: 2;
+    margin-bottom: 2em;
+}
+
+
+.section-title {
+    font-weight: 300;
+    font-size: 16px;
+    padding: 16px 0;
+}
+
+
+
+
+/* メインコンテンツ タブレット横向き以上 */
+@media (min-width: 1024px) {
+    #diary-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 32px;
+      column-gap: 32px;
+    }
+  
+    #diary-list > * {
+      grid-column: 1/-1;
+    }
+  
+    #diary-list > article {
+      grid-column: auto;
+    }
+  }
+  
+  /* メインコンテンツ PC */
+  @media (min-width: 1366px) {
+    #diary-list {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+
+  
+
+
+  
