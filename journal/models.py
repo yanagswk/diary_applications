@@ -20,3 +20,4 @@ class Journal(models.Model):
         return self.title
 
 
+#--
