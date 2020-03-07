@@ -33,6 +33,16 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-9">
+                {{ object.category.name }}
+                {% for tag in object.tags.all %}
+                {{ tag.name }}
+                {% endfor %}
+            </div>
+        </div>
+
+
         <hr>
 
         <div class="row">
@@ -45,11 +55,11 @@
 
         <div class="row">
             <div class="col-2">
-                {% if object.photo1 %}
+                {% if object.picture1 %}
                 <strong>写真①</strong>
             </div>
             <div class="col-3">
-                    <img src="{{ object.photo1.url }}" width="650" height="auto"/>
+                    <img src="{{ object.picture1.url }}" width="650" height="auto"/>
                 {% endif %}
             </div>
         </div>
@@ -58,11 +68,11 @@
 
         <div class="row">
             <div class="col-2">
-                {% if object.photo2 %}
+                {% if object.picture2 %}
                 <strong>写真②</strong>
             </div>
             <div class="col-3">
-                    <img src="{{ object.photo2.url }}" width="650" height="auto"/>
+                    <img src="{{ object.picture2.url }}" width="650" height="auto"/>
                 {% endif %}
             </div>
         </div>
@@ -71,11 +81,11 @@
 
         <div class="row">
             <div class="col-2">
-                {% if object.photo3 %}
+                {% if object.picture3 %}
                 <strong>写真③</strong>
             </div>
             <div class="col-3">
-                    <img src="{{ object.photo3.url }}" width="650" height="auto"/>
+                    <img src="{{ object.picture3.url }}" width="650" height="auto"/>
                 {% endif %}
             </div>
         </div>

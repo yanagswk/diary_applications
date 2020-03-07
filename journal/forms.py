@@ -8,7 +8,7 @@ class JournalCreateForm(forms.ModelForm):
 
     class Meta:
         model = Journal
-        fields = ('title', 'content', 'photo1', 'photo2', 'photo3', )
+        fields = ('title', 'category', 'tags', 'content', 'picture1', 'picture2', 'picture3', )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

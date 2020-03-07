@@ -1,0 +1,24 @@
+
+
+{% extends "base.html" %}
+
+{% block title %}カテゴリ一覧 | {{ block.super }}{% endblock %}
+{% block description %}カテゴリ一覧ページです。{% endblock %}
+
+{% block contents %}
+
+<h1>カテゴリ一覧</h1>
+<ul>
+  {% for category in object_list %}
+  <li><a href="{% url 'journal:category_journal' category.slug %}">{{ category.name }} ({{ category.num_journals }})</a></li>
+  {% empty %}
+  <li>カテゴリはありません。</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
+
+
+
+
+
