@@ -47,3 +47,37 @@ class Journal(models.Model):
 
 
 
+
+class Comment(models.Model):
+    journal = models.ForeignKey(Journal, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=50)
+    content = models.TextField(verbose_name='コメント', blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_public = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-timestamp']
+
+    def approve(self):
+        self.approved = True
+        self.save()
+
+    def __str__(self):
+        return self.content
+
+
+class Reply(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies')
+    name = models.CharField(max_length=50)
+    content = models.TextField(verbose_name='返信', blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_public = models.BooleanField(default=False)
+
+    def approve(self):
+        self.approved = True
+        self.save()
+
+    def __str__(self):
+        return self.content
+ 
+ 

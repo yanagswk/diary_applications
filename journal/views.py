@@ -1,5 +1,6 @@
 import logging
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
 from django.http import Http404
 
@@ -7,16 +8,13 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
-from .forms import JournalCreateForm
-from .models import Journal, Category, Tag
-
-
+from .forms import JournalCreateForm, JournalCommentForm, JournalReplyForm
+from .models import Journal, Category, Tag, Comment, Reply
 
 
 logger = logging.getLogger(__name__)
-
 
 
 class JournalListView(generic.ListView):
@@ -80,12 +78,6 @@ class JournalDeleteView(LoginRequiredMixin, generic.DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-
-
-
-
-
-
 class CategoryListView(generic.ListView):
     queryset = Category.objects.annotate(
         num_journals=Count('journal', filter=Q(journal__is_public=True)))
@@ -94,12 +86,6 @@ class CategoryListView(generic.ListView):
 class TagListView(generic.ListView):
     queryset = Tag.objects.annotate(num_journals=Count(
         'journal', filter=Q(journal__is_public=True)))
-
-
-
-
-
-
 
 
 class CategoryJournalView(generic.ListView):
@@ -116,8 +102,6 @@ class CategoryJournalView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = self.category
         return context
-
-
 
 
 class TagJournalView(generic.ListView):
@@ -161,4 +145,75 @@ class SearchJournalView(generic.ListView):
         query = self.request.GET.get('q')
         context['query'] = query
         return context
+
+
+
+
+
+
+
+class CommentFormView(generic.CreateView):
+    model = Comment
+    form_class = JournalCommentForm
+    template_name = 'comment_form.html'
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        journal_pk = self.kwargs['pk']
+        comment.journal = get_object_or_404(Journal, pk=journal_pk)
+        comment.save()
+        return redirect('journal:diary_detail', pk=journal_pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        journal_pk = self.kwargs['pk']
+        context['journal'] = get_object_or_404(Journal, pk=journal_pk)
+        return context
+
+
+@login_required
+def comment_approve(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.approve()
+    return redirect('journal:diary_detail', pk=comment.journal.pk)
+ 
+ 
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.delete()
+    return redirect('journal:diary_detail', pk=comment.journal.pk)
+
+
+class ReplyFormView(generic.CreateView):
+    model = Reply
+    form_class = JournalReplyForm
+    template_name = 'reply_form.html'
+
+    def form_valid(self, form):
+        reply = form.save(commit=False)
+        comment_pk = self.kwargs['pk']
+        reply.comment = get_object_or_404(Comment, pk=comment_pk)
+        reply.save()
+        return redirect('journal:diary_detail', pk=reply.comment.journal.pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comment_pk = self.kwargs['pk']
+        context['comment'] = get_object_or_404(Comment, pk=comment_pk)
+        return context
+
+
+@login_required
+def reply_approve(request, pk):
+    reply = get_object_or_404(Reply, pk=pk)
+    reply.approve()
+    return redirect('journal:diary_detail', pk=reply.comment.journal.pk)
+
+
+@login_required
+def reply_remove(request, pk):
+    reply = get_object_or_404(Reply, pk=pk)
+    reply.delete()
+    return redirect('journal:diary_detail', pk=reply.comment.journal.pk)
 

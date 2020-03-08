@@ -90,6 +90,22 @@
             </div>
         </div>
 
+
+        
+
+
+        <article class="comment-area">
+            <a class="btn btn-primary my-3" href="{% url 'journal:comment_form' journal.pk %}">コメントを投稿する</a>
+            {% include "journal/snippets/comments.html" %}
+        </article>
+
+
+
+
+
+
+
+
     </div>
 </div>
 {% endblock %}
