@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import get_object_or_404, redirect
 
-from .forms import JournalCreateForm, JournalCommentForm, JournalReplyForm
+from .forms import JournalCreateForm, JournalInquiryForm, JournalCommentForm, JournalReplyForm
 from .models import Journal, Category, Tag, Comment, Reply
 
 
@@ -79,13 +79,17 @@ class JournalDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 class CategoryListView(generic.ListView):
+    template_name = 'category_list.html'
     queryset = Category.objects.annotate(
         num_journals=Count('journal', filter=Q(journal__is_public=True)))
 
 
+
 class TagListView(generic.ListView):
-    queryset = Tag.objects.annotate(num_journals=Count(
-        'journal', filter=Q(journal__is_public=True)))
+    template_name = 'tag_list.html'
+    queryset = Tag.objects.annotate(
+        num_journals=Count('journal', filter=Q(journal__is_public=True)))
+
 
 
 class CategoryJournalView(generic.ListView):
@@ -148,7 +152,16 @@ class SearchJournalView(generic.ListView):
 
 
 
+class JournalInquiryView(generic.FormView):
+    template_name = 'inquiry.html'
+    form_class = JournalInquiryForm
+    success_url = reverse_lazy('journal:inquiry')
 
+    def form_valid(self, form):
+        form.send_email()
+        messages.success(self.request, 'メッセージを送信しました。')
+        logger.info('Inquiry sent by {}'.format(form.cleaned_data['name']))
+        return super().form_valid(form)
 
 
 

@@ -1,19 +1,18 @@
-
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}タグ一覧 | {{ block.super }}{% endblock %}
 {% block description %}タグ一覧ページです。{% endblock %}
 
 {% block contents %}
-
-<h1>タグ一覧</h1>
-<ul>
-  {% for tag in object_list %}
-  <li><a href="{% url 'journal:tag_journal' tag.slug %}">{{ tag.name }} ({{ tag.num_journals }})</a></li>
-  {% empty %}
-  <li>タグはありません。</li>
-  {% endfor %}
-</ul>
-
+<div class="div-style">
+  <h1>タグ一覧</h1>
+  <ul>
+    {% for tag in object_list %}
+    <li><a href="{% url 'journal:tag_journal' tag.slug %}">{{ tag.name }} ({{ tag.num_journals }})</a></li>
+    {% empty %}
+    <li>タグはありません。</li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}
 

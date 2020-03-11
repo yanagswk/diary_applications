@@ -14,7 +14,9 @@
     
         <div class="clearfix">
             <a class="btn btn-danger float-right" href="{% url 'journal:diary_create' %}">新規作成</a>
+            <a class="btn btn-danger float-right" href="{% url 'journal:inquiry' %}">お問い合わせ</a>
             {% include "journal/snippets/search_form.html" %}
+
         </div>
 
         <h1 class="section-title">{{ heading }}</h1>

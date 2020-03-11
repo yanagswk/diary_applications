@@ -93,32 +93,6 @@ li {
 
 
 
-/* メインコンテンツ タブレット横向き以上 */
-@media (min-width: 1024px) {
-    #diary-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-column-gap: 32px;
-      column-gap: 32px;
-    }
-  
-    #diary-list > * {
-      grid-column: 1/-1;
-    }
-  
-    #diary-list > article {
-      grid-column: auto;
-    }
-  }
-  
-  /* メインコンテンツ PC */
-  @media (min-width: 1366px) {
-    #diary-list {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-  }
-
-
 
 
   
