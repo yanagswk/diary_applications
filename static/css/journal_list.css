@@ -22,21 +22,6 @@ li {
     padding: 0 8px;
 }
 
-@media(min-width: 1024px) {
-    .container {
-        padding: 0 32px;
-        box-sizing: border-box;
-        width: 1024px;
-        margin: 0 auto;
-    }
-}
-
-@media(min-width: 1366px) {
-    .container {
-        width: 1366px;
-    }
-}
-
 
 
 .post-preview {
@@ -93,6 +78,3 @@ li {
 
 
 
-
-
-  
