@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 class JournalListView(generic.ListView):
     model = Journal
     template_name = 'diary_list.html'
-    paginate_by = 6
+    paginate_by = 3
 
     def get_queryset(self):
         diaries = Journal.objects.order_by('-created_at')
