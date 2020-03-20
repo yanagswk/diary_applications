@@ -39,6 +39,9 @@
                     <a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a>
                 </li>
               {% else %}
+                <li class="nav-item {% block active_signup %}{% endblock %}">
+                  <a class="nav-link" href="{% url 'account_signup' %}">サインアップ</a>
+                </li>              
                 <li class="nav-item {% block active_login %}{% endblock %}">
                     <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
                 </li>
@@ -70,7 +73,8 @@
         <!-- Footer -->
         <footer class="py-5 bg-info">
           <div class="container">
-            <p class="m-0 text-center text-white small">Copyright &copy; OUTPUT</p>
+            <p class="m-0 text-center text-white small">Copyright &copy; PRIVATE BLOG</p>
+            <h2>ヘッダー</h2>
           </div>
           <!-- /.container -->
         </footer>

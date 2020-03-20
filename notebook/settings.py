@@ -150,7 +150,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-
+# 編集前
 # ログイン/ログアウト後の遷移先を設定
 LOGIN_REDIRECT_URL = 'journal:diary_list'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
@@ -159,13 +159,25 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 ACCOUNT_LOGOUT_ON_GET = True
 
 
+# 追加
+# メールアドレス認証に変更する設定
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
+
+# サインアップにメールアドレス確認を挟むよう設定
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = True
+
+
+
+
+
+
+
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 MEDIA_URL = '/media/'
-
-
 
 
 MESSAGE_TAGS = {

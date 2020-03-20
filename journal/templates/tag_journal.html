@@ -5,21 +5,30 @@
 
 {% block contents %}
 
-<div class="div-style">
-
-  <h1>「#{{ tag.name }}」の投稿一覧</h1>
-  <ul>
-    {% for journal in object_list %}
-    {% if user.is_authenticated or journal.is_public %}
-    <li>{% if not journal.is_public %}[下書き] {% endif %}<a href="{% url 'journal:diary_detail' journal.id %}">{{ journal.title }}</a></li>
-    {% else %}
-    <li>投稿はありません。</li>
-    {% endif %}
-    {% empty %}
-    <li>まだ投稿はありません。</li>
-    {% endfor %}
-  </ul>
-
+<div class="container">
+  <div class="row">
+    <main class="col-md-8">
+      <div class="div-style w-100">
+        <h1>「{{ tag.name }}」の投稿一覧</h1>
+        <ul>
+          {% for journal in object_list %}
+          {% if user.is_authenticated or journal.is_public %}
+          <li>{% if not journal.is_public %}[下書き] {% endif %}<a href="{% url 'journal:diary_detail' journal.id %}">{{ journal.title }}</a></li>
+          {% else %}
+          <li>投稿はありません。</li>
+          {% endif %}
+          {% empty %}
+          <li>まだ投稿はありません。</li>
+          {% endfor %}
+        </ul>
+      </div> 
+    </main>
+    <aside class="col-md-4">
+      <div class="div-style w-100">
+      {% include "journal/snippets/sidebar.html" %}
+      </div>
+    </aside>
+  </div>
 </div>
 
 
