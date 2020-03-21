@@ -30,7 +30,8 @@ class JournalListView(generic.ListView):
 class JournalDetailView(generic.DetailView):
     model = Journal
     template_name = 'diary_detail.html'
-        
+
+
 
 
 class JournalCreateView(LoginRequiredMixin, generic.CreateView):

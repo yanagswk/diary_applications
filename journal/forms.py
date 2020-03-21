@@ -60,7 +60,7 @@ class JournalInquiryForm(forms.Form):
 class JournalCreateForm(forms.ModelForm):
     class Meta:
         model = Journal
-        fields = ('title', 'category', 'tags', 'content', 'picture1', 'picture2', 'picture3', )
+        fields = ('title', 'category', 'tags', 'content', 'picture1', 'picture2', 'picture3', 'is_public')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
